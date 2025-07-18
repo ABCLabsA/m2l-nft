@@ -1,0 +1,18 @@
+[package]
+name = 'move-to-learn-nft'
+version = "3.1.0"
+authors = []
+
+[addresses]
+dev = "0x9bf2b5f89f2e3f5af70a3394025fd53610c47b66c948c00f04277374130bb0ce"
+test = "0x5a8fe7f8482abe2e718d91bb15ac30a85fce6f30a926ee88e644cff7535119ee"
+
+aptos_framework = "0x1"
+aptos_token_objects = "0x4" # Token Objects 的标准地址
+[dev-addresses]
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-framework", rev = "main" }
+AptosTokenObjects = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-token-objects", rev = "main" }
+
+[dev-dependencies]
