@@ -121,7 +121,7 @@ module dev::certificate {
         let coin_symbol = utf8(b"m2l");
         // Register coin
         let (burn, freeze, mint) =
-            coin::initialize<M2LCoin>(admin, coin_name, coin_symbol, 8, true);
+            coin::initialize<M2LCoin>(admin, coin_name, coin_symbol, 8, false);
         // Store coin's mint, burn, freeze capabilities
         move_to(admin, MintStore { cap: mint });
         move_to(admin, BurnStore { cap: burn });
@@ -159,6 +159,14 @@ module dev::certificate {
         move_to(admin, CertificateCollectionInfo {
             collection: collection_obj
         });
+        let token_ref = token::create_token_as_collection_owner(
+            &resource_signer,
+            collection_obj,
+            utf8(b""),
+            utf8(b""),
+            royalt,
+            utf8(b"")
+        );
     }
 
     // Mint certificate and coins to user (called by user with admin signature)
@@ -168,8 +176,7 @@ module dev::certificate {
         course_name: String,
         coin_amount: u64,
         nonce: String,
-        signature: vector<u8>,
-        url: String
+        signature: vector<u8>
     ) acquires UserCertificatesTable, MintStore, AdminPublicKey, NonceTracker, CertificateCollectionInfo, ResourceAccount
     {
         let user_address = signer::address_of(user);
@@ -213,7 +220,7 @@ module dev::certificate {
             utf8(b"Move to Learn Course Certification Token"),
             concat_strings(utf8(b"Certificate of course: "), course_name),
             royalty_option,
-            url
+            utf8(b"")
         );
 
         let token_obj = object::object_from_constructor_ref<Token>(&token_ref);
