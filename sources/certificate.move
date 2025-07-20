@@ -1,5 +1,5 @@
 // Certificate issuance module
-module test::certificate {
+module dev::certificate {
 
     use std::option;
     use std::option::Option;
